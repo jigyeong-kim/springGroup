@@ -6,11 +6,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-	<title>t08.jsp</title>
+	<title>t12_mvc2.jsp</title>
 	<script>
 		'use strict'
 		
-		function fCheck() {
+		/* function fCheck() {
 			let name = $('#name').val();
 			let age = $('#age').val();
 			let hobby = $('input[name="hobby"]:checked').length();
@@ -37,7 +37,7 @@
 			if(content.trim() == "" || content.trim() == null){
 				alert('자기소개를 입력해주세요');
 			}
-		}
+		} */
 	
 	</script>
 </head>
@@ -46,7 +46,7 @@
 	<div class="container">
 		<h2>값 전송 연습....</h2>
 		<br>
-		<form name="myform" method="post" action="<%=request.getContextPath()%>/j0806/T08">
+		<form name="myform" method="post" action="${pageContext.request.contextPath}/j0806/T12">
 		  	<div class="mb-3">성명
 		  	  	<input type="text" id="name" name="name" value="홍길동" class="form-control mb-3" autofocus required />
 		  	</div>
@@ -95,8 +95,8 @@
 		  	  	<input type="file" id="file" name="fileName" class="form-control border"/>
 		  	</div>	
 		  	<div class="row">
-		  		<!-- <div class="col"><input type="submit" value="전송(submit)" class="btn btn-success"/></div> -->
-		  		<div class="col"><input type="button" value="전송(button)" onclick="fCheck()" class="btn btn-success"/></div>
+		  		<div class="col"><input type="submit" value="전송(submit)" class="btn btn-success"/></div>
+		  		<!-- <div class="col"><input type="button" value="전송(button)" onclick="fCheck()" class="btn btn-success"/></div> -->
 		  	  	<div class="col text-end"><input type="reset" value="다시입력" class="btn btn-warning"/></div>
 		  	</div>	  		
 		</form>

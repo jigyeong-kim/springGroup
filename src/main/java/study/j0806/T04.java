@@ -1,6 +1,7 @@
 package study.j0806;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +19,8 @@ public class T04 extends HttpServlet{
 		
 		String name = request.getParameter("name") == null  ? "" : request.getParameter("name");
 		int age = (request.getParameter("age") == "" || request.getParameter("age") == null) ? 0 : Integer.parseInt(request.getParameter("age"));
+		
+		name = URLEncoder.encode(name, "utf-8");
 		
 		// DB처리 완료후 성공여부를 jsp로 보낸다.
 		
