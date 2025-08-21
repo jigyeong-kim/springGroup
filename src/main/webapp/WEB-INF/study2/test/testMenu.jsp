@@ -35,6 +35,15 @@
 		<p>
 			<a href="${ctp}/javaGroup" class="btn btn-success">init login테스트</a>
 		</p>
+		<p>
+			<a href="${ctp}/study2/login/Login" class="btn btn-success">login테스트3</a>
+		</p>
+		<p>
+			<a href="${ctp}/study2/password/PassForm" class="btn btn-success">암호화 테스트</a>
+		</p>
+		<p>
+			<a href="${ctp}/study2/ajax/AjaxMenu" class="btn btn-success">ajax 테스트</a>
+		</p>
 	</div>
 	<p><br></p>
 </body>

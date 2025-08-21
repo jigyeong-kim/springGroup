@@ -16,99 +16,8 @@
 		}
 		
 		function loginList() {
-	    	$.ajax({
-	    		url  : '${ctp}/study2/login/LoginList2',
-	    		type : 'get',
-	    		success:function(res) {
-	    			console.log("res", res);
-	    			$("#demo").html(res);
-	    			
-	    			let js = JSON.parse(res);
-	    			console.log("js : ", js);
-	    			
-	    			let tMid='아이디 : ', tNickName='닉네임 : ', tName='성명 : ', tAge='나이 : ', tGender='성별 : ', tAddress='주소 : ';
-	    			for(let j of js) {
-	    				tMid += j.mid + "/";
-	    				tNickName += j.nickName + "/";
-	    				tName += j.name + "/";
-	    				tAge += j.age + "/";
-	    				tGender += j.gender + "/";
-	    				tAddress += j.address + "/";
-	    			}
-	    			let str = tMid + '<br/>';
-	    			str += tNickName + '<br/>';
-	    			str += tName + '<br/>';
-	    			str += tAge + '<br/>';
-	    			str += tGender + '<br/>';
-	    			str += tAddress;
-	    			
-	    			demo2.innerHTML = str;
-	    			
-	    			//자바객체로 변환된 자료를 테이블에 동적폼으로 출력시켜보세요
-	    			str = '<table class="table table-hover text-center">'
-	    			str += '<tr><th>아이디</th><th>닉네임</th><th>이름</th><th>나이</th><th>성별</th><th>주소</th></tr>'
-    				for(let j of js) {
-    					str += '<tr><td>' + j.mid + '</td>';
-    	    			str += '<td>' + j.nickName + '</td>';
-    	    			str += '<td>' + j.name + '</td>';
-    	    			str += '<td>' + j.age + '</td>';
-    	    			str += '<td>' + j.gender + '</td>';
-    	    			str += '<td>' + j.address + '</td></tr>';
-	    			}
-	    			str += '</table>';
-	    			
-	    			demo3.innerHTML = str;
-	    		},
-	    		error : function() { alert("전송오류!"); }
-	    	});
-	    }
-		function loginList3() {
-	    	$.ajax({
-	    		url  : '${ctp}/study2/login/LoginList3',
-	    		type : 'get',
-	    		success:function(res) {
-	    			console.log("res", res);
-	    			$("#demo").html(res);
-	    			
-	    			let js = JSON.parse(res);
-	    			console.log("js : ", js);
-	    			
-	    			let tMid='아이디 : ', tNickName='닉네임 : ', tName='성명 : ', tAge='나이 : ', tGender='성별 : ', tAddress='주소 : ';
-	    			for(let j of js) {
-	    				tMid += j.mid + "/";
-	    				tNickName += j.nickName + "/";
-	    				tName += j.name + "/";
-	    				tAge += j.age + "/";
-	    				tGender += j.gender + "/";
-	    				tAddress += j.address + "/";
-	    			}
-	    			let str = tMid + '<br/>';
-	    			str += tNickName + '<br/>';
-	    			str += tName + '<br/>';
-	    			str += tAge + '<br/>';
-	    			str += tGender + '<br/>';
-	    			str += tAddress;
-	    			
-	    			demo2.innerHTML = str;
-	    			
-	    			//자바객체로 변환된 자료를 테이블에 동적폼으로 출력시켜보세요
-	    			str = '<table class="table table-hover text-center">'
-	    			str += '<tr><th>아이디</th><th>닉네임</th><th>이름</th><th>나이</th><th>성별</th><th>주소</th></tr>'
-    				for(let j of js) {
-    					str += '<tr><td>' + j.mid + '</td>';
-    	    			str += '<td>' + j.nickName + '</td>';
-    	    			str += '<td>' + j.name + '</td>';
-    	    			str += '<td>' + j.age + '</td>';
-    	    			str += '<td>' + j.gender + '</td>';
-    	    			str += '<td>' + j.address + '</td></tr>';
-	    			}
-	    			str += '</table>';
-	    			
-	    			demo3.innerHTML = str;
-	    		},
-	    		error : function() { alert("전송오류!"); }
-	    	});
-	    }
+			
+		}
 		function loginSearch1() {
 	    	$.ajax({
 	    		url  : '${ctp}/study2/login/LoginSearch1',
@@ -161,10 +70,10 @@
 	    		success:function(res) {
 	    			//demo.innerHTML = res;
 	    			
-	    			if(res.indexOf("/") != -1) {
+	    			if(res.indexOf("/") != -1){
 	    				let temp = res.split("/");
 	    				let str = '';
-	    				str += '<form name="myfrom" method="post" action="LoginSearch2Ok">';
+	    				str += '<form name="myfrom">';
 	    				str += '<table class="table table-bordered">';
 	    				str += '<tr>';
 	    				str += '<th>아이디</th>';
@@ -192,9 +101,9 @@
 	    				str += '<td colspan="2" class="text-center"><input type="submit" value="정보수정" class="btn btn-primary"/></td>';
 	    				str += '</tr>';
 	    				str += '</table>';
-	    				str += '<input type="hidden" name="idx" value="'+temp[0]+'" />';
-	    				str += '<input type="hidden" name="mid" value="'+temp[1]+'" />';
+	    				str += '<input type="hidden" name="idx" value="'+ temp[0] +'">';
 	    				str += '</form>';
+	    				
 	    				demo.innerHTML = str;
 	    			}
 	    		},
@@ -209,9 +118,8 @@
 		<h2>회원전용방</h2>
 		<hr>
 		<div class="row text-center">
-			<div class="col"><a href="LoginList" class="btn btn-dark btn-sm">회원리스트(비)</a></div>
-		    <div class="col"><a href="javascript:loginList()" class="btn btn-success btn-sm">회원리스트(동1)</a></div>
-		    <div class="col"><a href="javascript:loginList3()" class="btn btn-success btn-sm">회원리스트(동2)</a></div>
+			<div class="col"><a href="LoginList" class="btn btn-success btn-sm">회원리스트(비)</a></div>
+		    <div class="col"><a href="javascript:loginList()" class="btn btn-success btn-sm">회원리스트(동)</a></div>
 		    <div class="col"><a href="javascript:loginSearch1()" class="btn btn-primary btn-sm">회원검색(admin)</a></div>
 		    <div class="col"><a href="javascript:loginSearch2()" class="btn btn-primary btn-sm">회원검색(form)</a></div>
 		    <div class="col"><a href="javascript:updateCheck()" class="btn btn-info btn-sm">회원정보갱신</a></div>
@@ -223,10 +131,6 @@
 		<div>회원 닉네임 : ${sNickName }</div>
 		<hr>
 		<div id="demo"></div>
-		<hr>
-		<div id="demo2"></div>
-		<hr>
-		<div id="demo3"></div>
 		<hr>
 		<div class="text-center">
 			<button type="button" onclick="logout()" class="btn btn-success">로그아웃</button>

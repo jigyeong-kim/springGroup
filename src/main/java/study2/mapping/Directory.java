@@ -1,35 +1,26 @@
-package study2.login;
+package study2.mapping;
 
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet("/study2/login/Login")
-public class Login extends HttpServlet {
-
+@WebServlet ("/study2/mapping/Directory")
+public class Directory extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Cookie[] cookies = request.getCookies();
+		int su1 = 100, su2 = 200;
 		
-		if(cookies != null) {
-			for(int i=0; i<cookies.length; i++) {
-				if(cookies[i].getName().equals("cMid")) {
-					request.setAttribute("mid", cookies[i].getValue());
-					break;
-				}
-			}
-		}
+		request.setAttribute("su1", su1);
+		request.setAttribute("su2", su2);
 		
-		String viewPage = "/WEB-INF/study2/login/login.jsp";
+		String viewPage = "/WEB-INF/study2/mapping/directory.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}
-	
 }

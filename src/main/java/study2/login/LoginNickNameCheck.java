@@ -5,29 +5,29 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
-@WebServlet("/study2/login/Login")
-public class Login extends HttpServlet {
+@WebServlet("/study2/login/LoginNickNameCheck")
+public class LoginNickNameCheck extends HttpServlet {
 
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Cookie[] cookies = request.getCookies();
 		
-		if(cookies != null) {
-			for(int i=0; i<cookies.length; i++) {
-				if(cookies[i].getName().equals("cMid")) {
-					request.setAttribute("mid", cookies[i].getValue());
-					break;
-				}
-			}
-		}
+		String nickName = request.getParameter("nickName")==null? "" : request.getParameter("nickName");
 		
-		String viewPage = "/WEB-INF/study2/login/login.jsp";
+		LoginDAO dao = new LoginDAO();
+		LoginVO vo = dao.getLoginNickNameCheck(nickName);
+		
+		int res = 0;
+		if(vo.getNickName() == null) res=1;
+		
+		request.setAttribute("res", res);
+		request.setAttribute("nickName", nickName);
+		
+		String viewPage = "/WEB-INF/study2/login/loginNickNameCheck.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}
