@@ -10,29 +10,31 @@
       <li class="nav-item">
         <a class="nav-link" href="GuestList.gu">Guest</a>
       </li>
+      <c:if test="${!empty sMid}">
+	      <li class="nav-item">
+	        <a class="nav-link" href="BoardList.bo">Board</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="#">PDS</a>
+	      </li>
+	      <li class="nav-item">
+	        <div class="dropdown">
+					  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Study</button>
+					  <ul class="dropdown-menu">
+					    <li><a class="dropdown-item" href="${ctp}/study2/ajax/friend/FriendMain">AJAX연습</a></li>
+					    <li><a class="dropdown-item" href="${ctp}/study2/mapping/Directory">디렉토리매핑연습</a></li>
+					    <li><a class="dropdown-item" href="${ctp}/study2/mapping/Extension.do">확장자매핑연습1</a></li>
+					    <li><a class="dropdown-item" href="${ctp}/study2/mapping/Extension2.test">확장자매핑연습2</a></li>
+					    <li><a class="dropdown-item" href="${ctp}/study2/mapping/Extension3.test3">확장자매핑연습3</a></li>
+					    <li><a class="dropdown-item" href="${ctp}/study2/mapping/Extension4.test4">확장자매핑연습4</a></li>
+					    <li><a class="dropdown-item" href="${ctp}/study2/mapping/Extension5.test5">확장자매핑연습5</a></li>
+					  </ul>
+					</div>
+	      </li>
+      </c:if>
       <li class="nav-item">
-        <a class="nav-link" href="#">Board</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">PDS</a>
-      </li>
-      <li class="nav-item">
-        <div class="dropdown">
-				  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Study</button>
-				  <ul class="dropdown-menu">
-				    <li><a class="dropdown-item" href="${ctp}/study2/ajax/friend/FriendMain">AJAX연습</a></li>
-				    <li><a class="dropdown-item" href="${ctp}/study2/mapping/Directory">디렉토리매핑연습</a></li>
-				    <li><a class="dropdown-item" href="${ctp}/study2/mapping/Extension.do">확장자매핑연습1</a></li>
-				    <li><a class="dropdown-item" href="${ctp}/study2/mapping/Extension2.test">확장자매핑연습2</a></li>
-				    <li><a class="dropdown-item" href="${ctp}/study2/mapping/Extension3.test3">확장자매핑연습3</a></li>
-				    <li><a class="dropdown-item" href="${ctp}/study2/mapping/Extension4.test4">확장자매핑연습4</a></li>
-				    <li><a class="dropdown-item" href="${ctp}/study2/mapping/Extension5.test5">확장자매핑연습5</a></li>
-				  </ul>
-				</div>
-      </li>
-      <li class="nav-item">
-        <c:if test="${!empty sMid}"> <a class="nav-link" href="${ctp}/study2/login/Logout">Logout</a></c:if>
-        <c:if test="${empty sMid}"> <a class="nav-link" href="${ctp}/study2/login/Login">Login</a></c:if>
+        <c:if test="${!empty sMid}"><a class="nav-link" href="${ctp}/study2/login/Logout">Logout</a></c:if>
+        <c:if test="${empty sMid}"><a class="nav-link" href="${ctp}/study2/login/Login">Login</a></c:if>
       </li>
     </ul>
   </div>

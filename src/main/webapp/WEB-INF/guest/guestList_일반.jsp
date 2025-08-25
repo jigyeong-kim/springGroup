@@ -9,7 +9,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <jsp:include page="/include/bs5.jsp" />
-  <title>guestList.jsp(페이징처리)</title>
+  <title>guestList_일반.jsp</title>
   <script>
   'use strict'
   function guestDelete(idx) {
@@ -45,20 +45,9 @@
   <table class="table table-borderless m-0 p-0">
     <tr>
       <td><a href="GuestInput.gu" class="btn btn-success btn-sm">글쓰기</a></td>
-      <td >
+      <td class="text-end">
         <c:if test="${sAdmin != 'adminOK'}"><a href="Admin.gu" class="btn btn-primary btn-sm">관리자</a></c:if>
         <c:if test="${sAdmin == 'adminOK'}"><a href="AdminOut.gu" class="btn btn-primary btn-sm">관리자 로그아웃</a></c:if>
-      </td>
-      <td class="text-end"> 
-        <c:if test="${pag > 1}">
-        	<a href="GuestList.gu?pag=1" title="첫페이지" class="text-decoration-none text-dark link-primary">◁◁</a>
-        	<a href="GuestList.gu?pag=${pag-1}" title="이전페이지" class="text-decoration-none text-dark link-primary">◁</a>
-        </c:if>
-        ${pag}/${totPage}
-        <c:if test="${pag < totPage}">
-        	<a href="GuestList.gu?pag=${pag+1}" title="다음페이지" class="text-decoration-none text-dark link-primary">▷</a>
-        	<a href="GuestList.gu?pag=${totPage}" title="마지막페이지" class="text-decoration-none text-dark link-primary">▷▷</a>
-        </c:if>
       </td>
     </tr>
   </table>
@@ -67,7 +56,7 @@
     <table class="table table-borderless m-0 p-0">
 	    <tr>
 	      <%-- <td>번호 : ${vo.idx} --%>
-	      <td>번호 : ${curScrStartNo}
+	      <td>번호 : ${totRecCnt - st.index} 
 	      <c:if test="${sAdmin == 'adminOK'}"><a href="javascript:guestDelete(${vo.idx} })" class="btn btn-banger btn-sm">삭제</a></c:if>
 	      <c:if test="${sAdmin == 'adminOK' && sNickName == vo.Name}">
 	      	  <a href="#" class="btn btn-warning btn-sm">수정</a>
@@ -104,28 +93,7 @@
 	    </tr>
 	  </table>
 	  <br/>
-	  <c:set var="curScrStartNo" value="${curScrStartNo - 1}"></c:set>
   </c:forEach>
-  <!-- 블록페이지 시작 -->
-  <div class="text-center">
-    <c:if test="${pag > 1}">[<a href="GuestList.gu?pag=1" class="text-decoration-none text-dark link-primary">첫페이지</a>]</c:if>
-    <c:if test="${curBlock > 0}">[<a href="GuestList.gu?pag=${(curBlock-1)*blockSize + 1}" class="text-decoration-none text-dark link-primary">이전블록</a>]</c:if>
-    <c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize)+blockSize}" varStatus="st">
-  	  <c:if test="${i <= totPage && i == pag}">[<a href="GuestList.gu?pag=${i}" class="text-decoration-none text-dark link-primary"><font color="red"><b>${i}</b></font></a>]</c:if>
-  	  <c:if test="${i <= totPage && i != pag}">[<a href="GuestList.gu?pag=${i}" class="text-decoration-none text-dark link-primary">${i}</a>]</c:if>
-    </c:forEach>
-    <c:if test="${curBlock < lastBlock}">[<a href="GuestList.gu?pag=${(curBlock+1)*blockSize + 1}" class="text-decoration-none text-dark link-primary">다음블록</a>]</c:if>
-    <c:if test="${pag < totPage}">[<a href="GuestList.gu?pag=${totPage}" class="text-decoration-none text-dark link-primary">마지막페이지</a>]</c:if>
-	<ul class="pagination">
-	  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-	  <li class="page-item"><a class="page-link" href="#">1</a></li>
-	  <li class="page-item active"><a class="page-link" href="#">2</a></li>
-	  <li class="page-item"><a class="page-link" href="#">3</a></li>
-	  <li class="page-item"><a class="page-link" href="#">Next</a></li>
-	</ul>
-  </div>
-
-  <!-- 블록페이지 끝 -->
 </div>
 <p><br/></p>
 <jsp:include page="/include/footer.jsp" />

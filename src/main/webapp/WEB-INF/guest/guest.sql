@@ -16,4 +16,10 @@ insert into guest values (default, '관리자', '방명록 서비스를 시작�
 
 select * from guest;
 
+select * from guest limit 5;
+select * from guest limit 0,5;
+select * from guest limit 5,5;
+
 select * from guest order by idx desc
+select count(*) from guest;
+select count(*) from guest where name='aaa';

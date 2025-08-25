@@ -4,7 +4,7 @@
   <p>Resize this responsive page to see the effect!</p> 
 </div>
 <!-- Carousel -->
-<div id="demo" class="carousel slide" data-bs-ride="carousel">
+<div id="demo" class="p-5 bg-primary text-white text-center carousel slide" data-bs-ride="carousel">
 
   <!-- Indicators/dots -->
   <div class="carousel-indicators">
@@ -16,7 +16,7 @@
   <!-- The slideshow/carousel -->
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="la.jpg" alt="Los Angeles" class="d-block w-100">
+      <img src="${ctp}/images/la.jpg" alt="Los Angeles" class="d-block w-100">
     </div>
     <div class="carousel-item">
       <img src="chicago.jpg" alt="Chicago" class="d-block w-100">
