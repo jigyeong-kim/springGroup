@@ -25,7 +25,7 @@ public class BoardInputOkCommand implements CommonInterface {
 		vo.setNickName(nickName);
 		vo.setTitle(title);
 		vo.setContent(content);
-		vo.setHostIP(hostIp);
+		vo.setHostIp(hostIp);
 		vo.setOpenSw(openSw);
 		
 		BoardDAO dao = new BoardDAO();

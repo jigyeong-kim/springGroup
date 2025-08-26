@@ -6,7 +6,7 @@ public class BoardVO {
 	private String nickName;
 	private String title;
 	private String content;
-	private String hostIP;
+	private String hostIp;
 	private String openSw;
 	private int readNum;
 	private String wDate;
@@ -42,11 +42,11 @@ public class BoardVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getHostIP() {
-		return hostIP;
+	public String getHostIp() {
+		return hostIp;
 	}
-	public void setHostIP(String hostIP) {
-		this.hostIP = hostIP;
+	public void setHostIp(String hostIp) {
+		this.hostIp = hostIp;
 	}
 	public String getOpenSw() {
 		return openSw;
@@ -81,7 +81,8 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", title=" + title + ", content="
-				+ content + ", hostIP=" + hostIP + ", openSw=" + openSw + ", readNum=" + readNum + ", wDate=" + wDate
+				+ content + ", hostIp=" + hostIp + ", openSw=" + openSw + ", readNum=" + readNum + ", wDate=" + wDate
 				+ ", good=" + good + ", complaint=" + complaint + "]";
 	}
+
 }
