@@ -17,7 +17,7 @@ public class BoardGoodCheckPlueMinusCommand implements CommonInterface {
 		BoardDAO dao = new BoardDAO();
 
 		//좋아요 조회수 1씩 증가시키기
-		int res = dao.setBoardGoodCheckPlueMinus(idx, goodCnt);
+		int res = dao.setBoardGoodCheckPlusMinus(idx, goodCnt);
 		
 		response.getWriter().write(res + "");
 	}

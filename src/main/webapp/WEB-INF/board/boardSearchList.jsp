@@ -7,14 +7,7 @@
 <head>
 	<meta charset="UTF-8">
     <jsp:include page="/include/bs5.jsp"></jsp:include>
-	<title>boardList.jsp</title>
-	<!-- <script>
-		'use strict;
-			function pageSizeCheck() {
-	    	let pageSize = $("#pageSize").val();
-	    	location.href = "BoardList.bo?pag=${pag}&pageSize="+pageSize;
-	    }
-	</script> -->
+	<title>boardSearchList.jsp</title>
 </head>
 <body>
 	<jsp:include page="/include/header.jsp" />
@@ -22,21 +15,11 @@
 	<div class="container">
 		<table class="table table-borderless">
 			<tr>
-				<td colspan="2"><h2 class="text-center">게시판 리스트</h2></td>
+				<td colspan="2"><h2 class="text-center">게시판 검색 리스트</h2></td>
 			</tr>
 			<tr>
-				<td><a href="BoardInput.bo" class="btn btn-success btn-sm">글쓰기</a></td>
-				<td class="text-end">
-					<!-- <select name="pageSize" id="pageSize" onchange="ageSizeCheck()"> -->
-					<select name="pageSize">
-						<option value="3" ${pageSize == 3 ? 'selected' : ''} selected>3</option>
-						<option value="5" ${pageSize == 5 ? 'selected' : ''}>5</option>
-						<option value="10" ${pageSize == 10 ? 'selected' : ''}>10</option>
-						<option value="15" ${pageSize == 15 ? 'selected' : ''}>15</option>
-						<option value="20" ${pageSize == 20 ? 'selected' : ''}>20</option>
-						<option value="30" ${pageSize == 30 ? 'selected' : ''}>30</option>
-					</select>
-				</td>
+				<td>(${searchStr}로 ${searchString}를 검색한 결과 ${fn:length(vos)}건이 검색되었습니다.)</td>
+				<td class="text-end"><a href="BoardList.bo" class="btn btn-success btn-sm">돌아가기</a></td>
 			</tr>
 		</table>
 		
@@ -48,21 +31,22 @@
 			<th>올린날짜</th>
 			<th>조회수</th>
 		</tr>
+		<c:set var="curScrStartNo" value="${fn:length(vos)}"></c:set>
 		<c:forEach var="vo" items="${vos}" varStatus="st">
 			<tr>
-				<td>${vo.idx}</td>
+				<td>${curScrStartNo}</td>
 			    <td class="text-start">
 			    	<c:if test="${vo.openSw == 'NO'}">
 			    		<c:if test="${sMid != vo.mid}">
 		    				<a href="javascript:void(0)" onclick="alert('읽을수 있는 권한이 없습니다.')" class="text-decoration-none text-dark link-primary">${vo.title}</a>
 		    			</c:if>
 		    			<c:if test="${sMid == vo.mid || sAdmin == 'adminOK'}">
-				    		<a href="BoardContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}" class="text-decoration-none text-dark link-primary">${vo.title}</a>
+				    		<a href="BoardContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}&boardFlag=search" class="text-decoration-none text-dark link-primary">${vo.title}</a>
 			    		</c:if>
 			    		🔐
 			    	</c:if>
 			    	<c:if test="${vo.openSw == 'OK'}">
-			    		<a href="BoardContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}" class="text-decoration-none text-dark link-primary">${vo.title}</a>
+			    		<a href="BoardContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}&boardFlag=search" class="text-decoration-none text-dark link-primary">${vo.title}</a>
 		    		</c:if>
 			    	<c:if test="${vo.hour_diff <= 24 }">
 			    	<img alt="" src="${ctp}/images/new.gif">
@@ -126,18 +110,18 @@
 		  
 		  <!-- 검색기 시작 -->
 		  <div class="text-center">
-		  	  <form action="BoardSearchList.bo" name="searchForm" method="post">
-		  	  		<b>검색 : </b>
-			  	  <select name="search" id="search">
-					<option value="title" selected>글제목</option>
-			        <option value="nickName">글쓴이</option>
-			        <option value="content">글내용</option>
-			  	  </select>
-			  	  <input type="text" name="searchString" id="searchString" required />
-			      <input type="submit" value="검색" class="btn btn-secondary btn-sm"/>
-		  	</form>
+		    <form name="searchForm" method="post" action="BoardSearchList.bo">
+		      <b>검색  : </b>
+		      <select name="search" id="search">
+		        <option value="title" selected>글제목</option>
+		        <option value="nickName">글쓴이</option>
+		        <option value="content">글내용</option>
+		      </select>
+		      <input type="text" name="searchString" id="searchString" required />
+		      <input type="submit" value="검색" class="btn btn-secondary btn-sm"/>
+		    </form>
 		  </div>
-		  <!-- 검색기 끝 -->
+		<!-- 검색기 끝 -->
 	</div>
 	<jsp:include page="/include/footer.jsp" />
 </body>
