@@ -16,10 +16,11 @@ public class BoardGoodCheckCommand implements CommonInterface {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int idx = (request.getParameter("idx")==null || request.getParameter("idx").equals("")) ? 0 : Integer.parseInt(request.getParameter("idx"));
+int idx = (request.getParameter("idx")==null || request.getParameter("idx").equals("")) ? 0 : Integer.parseInt(request.getParameter("idx"));
+		
 		BoardDAO dao = new BoardDAO();
-
-		//좋아요 조회수 1씩 증가시키기(중복 배제)
+		
+		// 좋아요 1씩 증가시키기(중복배제)
 		int res = 0;
 		HttpSession session = request.getSession();
 		List<String> contentReadNum = (List<String>) session.getAttribute("sContentIdx");

@@ -34,45 +34,37 @@
 			});
 		};
 		
-		// 좋아요(따봉)
-		function goodCheckPlus() {
-			$.ajax({
-				url : 'BoardGoodCheckPlueMinus.bo',
-				type : 'post',
-				data : {
-					idx : ${vo.idx}, 
-					goodCnt: 1
-				},
-				success : function(res) {
-					if(res != '0') lacation.reload();
-					else alert("이미 좋아요를 하셨습니다")
-				},
-				error : function() {
-					alert('전송오류');
-				}
-				
-			});
-		};
-		
-		// 싫어요 처리
-		function goodCheckMinus() {
-			$.ajax({
-				url : 'BoardGoodCheckPlueMinus.bo',
-				type : 'post',
-				data : {
-					idx : ${vo.idx}, 
-					goodCnt: -1
-				},
-				success : function(res) {
-					if(res != '0') lacation.reload();
-					else alert("이미 싫어요를 하셨습니다")
-				},
-				error : function() {
-					alert('전송오류');
-				}
-				
-			});
-		};
+		// 좋아요(따봉) 처리(중복 허용)
+	    function goodCheckPlus() {
+	    	$.ajax({
+	    		url  : 'BoardGoodCheckPlusMinus.bo',
+	    		type : 'post',
+	    		data : {
+	    			idx : ${vo.idx},
+	    			gooCnt : 1
+	    		},
+	    		success:function(res) {
+	    			if(res != '0') location.reload();
+	    		},
+	    		error : function() { alert("전송오류!!"); }
+	    	});
+	    }
+	  
+	    // 싫어요 처리(중복 허용)
+	    function goodCheckMinus() {
+	    	$.ajax({
+	    		url  : 'BoardGoodCheckPlusMinus.bo',
+	    		type : 'post',
+	    		data : {
+	    			idx : ${vo.idx},
+	    			gooCnt : -1
+	    		},
+	    		success:function(res) {
+	    			if(res != '0') location.reload();
+	    		},
+	    		error : function() { alert("전송오류!!"); }
+	    	});
+	    }
 		
 		//게시글 삭제
 		function deleteCheck() {
@@ -111,6 +103,57 @@
 	    		error : function() { alert("전송오류!!"); }
 	    	});
 	    }
+		// 댓글 삭제처리
+	    function replyDelete(idx) {
+	    	let ans = confirm("선택한 댓글을 삭제하시겠습니까?");
+	    	if(!ans) return false;
+	    	
+	    	$.ajax({
+	    		url  : "BoardReplyDelete.bo",
+	    		type : "post",
+	    		data : {idx : idx},
+	    		success:function(res) {
+	    			if(res != '0') {
+	    				alert('댓글이 삭제되었습니다.');
+	    				location.reload();
+	    			}
+	    			else alert("댓글 삭제 실패~~");
+	    		},
+	    		error : function() { alert("전송오류!!"); }
+	    	});
+	    }
+		// 댓글 수정창 모두 닫기
+		$(function () {
+			$('.replyInnerContent').hide();
+		});
+		
+		// 댓글 수정버튼 클릭시
+		function replyUpdate(idx) {
+			$('.replyInnerContent').hide();
+			$('#demo' + idx).show();
+		}
+		// 댓글 수정창에서 댓글수정 버튼 클릭시
+		function replyUpdateOk(idx) {
+			let content = $("#replyUpdateContent"+idx).val();
+			let query = {
+				idx : idx,
+				content : content
+			};
+			
+			$.ajax({
+	    		url  : "BoardReplyUpdateOk.bo",
+	    		type : "post",
+	    		data : {idx : idx},
+	    		success:function(res) {
+	    			if(res != '0') {
+	    				alert('댓글이 수정되었습니다.');
+	    				location.reload();
+	    			}
+	    			else alert("댓글 수정 실패~~");
+	    		},
+	    		error : function() { alert("전송오류!!"); }
+	    	});
+		}
 	</script>
 </head>
 <body>
@@ -146,7 +189,10 @@
 				<td colspan="">${vo.title}</td>
 				<th>좋아요</th>
 				<td>
-					<a href="javascript:goodCheck()" class="text-decoration-none" title="좋아요"> ❤️</a> : ${vo.good}
+					 (<a href="javascript:goodCheck()" class="text-decoration-none" title="좋아요">좋아요 :
+			            <c:if test="${!fn:contains(sContentIdx, 'boardGood'+=vo.idx)}">♥</c:if>
+			            <c:if test="${fn:contains(sContentIdx, 'boardGood'+=vo.idx)}"><font color='red'>♥</font></c:if>
+			         </a> : ${vo.good})
 					/ 
 					<a href="javascript:goodCheckPlus()" class="text-decoration-none" title="좋아요"> 👍 좋아요 </a>
 					<a href="javascript:goodCheckMinus()" class="text-decoration-none" title="삻옹ㅅ"> 👎 싫어요 </a>
@@ -198,24 +244,39 @@
 		<!-- 댓글처리(리스트/입력) 시작 -->
 		<!-- 댓글 리스트 -->
 		<table class="table table-hover text-center">
-			<tr>
-				<th>작성자</th>
-				<th>댓글내용</th>
-				<th>댓글일자</th>
-				<th>댓글IP</th>
-			</tr>
-			<c:forEach var="replyVo" items="${replyVos}" varStatus="st">
-				<tr>
-					<td class="text-start">
-			          ${replyVo.nickName}
-			          <c:if test="${sMid == replyVo.mid}"><a href="javascript:replyDelete(${replyVo.idx})" title="삭제" class="text-decoration-none">x</a></c:if>
-			        </td>
-			        <td>${replyVo.content}</td>
-			        <td>${replyVo.wDate}</td>
-			        <td>${replyVo.hostIp}</td>
-				</tr>
-			</c:forEach>
-		</table>
+		    <tr>
+		      <th>작성자</th>
+		      <th class="text-start ps-3"> 댓글내용</th>
+		      <th>댓글일자</th>
+		      <th>댓글IP</th>
+		    </tr>
+		    <c:forEach var="replyVo" items="${replyVos}" varStatus="st">
+		      <tr>
+		        <td>
+		          ${replyVo.nickName}
+		          <c:if test="${sMid == replyVo.mid}">
+		          	(
+		          	<a href="javascript:replyUpdate(${replyVo.idx})" title="댓글수정" class="text-decoration-none">√</a>,
+		          	<a href="javascript:replyDelete(${replyVo.idx})" title="댓글삭제" class="text-decoration-none">x</a>
+		          	)
+		          </c:if>
+		        </td>
+		        <td class="text-start">${fn:replace(replyVo.content, newLine, "<br/>")}</td>
+		        <td>${replyVo.wDate}</td>
+		        <td>${replyVo.hostIp}</td>
+		      </tr>
+		      <tr id="demo${replyVo.idx}" class="replyInnerContent">
+		        <td colspan="4" class="text-center ps-5 pe-4 pt-1 pb-1">
+		          <form>
+		            <div class="input-group">
+		              <textarea rows="2" name="replyUpdateContent" id="replyUpdateContent${replyVo.idx}" class="form-control">${replyVo.content}</textarea>
+		              <input type="button" value="댓글수정" onclick="replyUpdateOk(${replyVo.idx})" class="btn btn-success btn-sm"/>
+		            </div>
+		          </form>
+		        </td>
+		      </tr>
+		    </c:forEach>
+		  </table>
 		<!-- 댓글 리스트 -->
 		
 		<!-- 댓글 입력폼 -->

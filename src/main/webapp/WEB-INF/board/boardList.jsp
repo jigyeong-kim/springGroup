@@ -43,7 +43,7 @@
 		<table class="table table-hover text-center">
 		<tr>
 			<th>번호</th>
-			<th>글제목</th>
+			<th>글제목(댓글수)</th>
 			<th>글쓴이</th>
 			<th>올린날짜</th>
 			<th>조회수</th>
@@ -54,15 +54,24 @@
 			    <td class="text-start">
 			    	<c:if test="${vo.openSw == 'NO'}">
 			    		<c:if test="${sMid != vo.mid}">
-		    				<a href="javascript:void(0)" onclick="alert('읽을수 있는 권한이 없습니다.')" class="text-decoration-none text-dark link-primary">${vo.title}</a>
+		    				<a href="javascript:void(0)" onclick="alert('읽을수 있는 권한이 없습니다.')" class="text-decoration-none text-dark link-primary">
+		    					${vo.title}
+		    				</a>
+	    					<c:if test="${vo.replyCnt != 0}">(${vo.replyCnt})</c:if>
 		    			</c:if>
 		    			<c:if test="${sMid == vo.mid || sAdmin == 'adminOK'}">
-				    		<a href="BoardContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}" class="text-decoration-none text-dark link-primary">${vo.title}</a>
+				    		<a href="BoardContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}" class="text-decoration-none text-dark link-primary">
+				    			${vo.title}
+				    		</a>
+			    			<c:if test="${vo.replyCnt != 0}">(${vo.replyCnt})</c:if>
 			    		</c:if>
 			    		🔐
 			    	</c:if>
 			    	<c:if test="${vo.openSw == 'OK'}">
-			    		<a href="BoardContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}" class="text-decoration-none text-dark link-primary">${vo.title}</a>
+			    		<a href="BoardContent.bo?idx=${vo.idx}&pag=${pag}&pageSize=${pageSize}" class="text-decoration-none text-dark link-primary">
+			    			${vo.title}
+			    		</a>
+		    			<c:if test="${vo.replyCnt != 0}">(${vo.replyCnt})</c:if>	
 		    		</c:if>
 			    	<c:if test="${vo.hour_diff <= 24 }">
 			    	<img alt="" src="${ctp}/images/new.gif">
