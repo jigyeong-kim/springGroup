@@ -24,6 +24,4 @@ public class FileListCommand implements CommonInterface {
 		request.setAttribute("files", files);
 	}
 
-	
-	
 }

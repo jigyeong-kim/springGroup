@@ -10,11 +10,15 @@ public class PdsVO {
 	private String part;
 	private String title;
 	private String content;
+	private String openSw;
 	private String pwd;
 	private String hostIp;
-	private String openSw;
 	private String fDate;
-	private String downNum;
+	private int downNum;
+	
+	private int hour_diff;
+	private int date_diff;
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -69,6 +73,12 @@ public class PdsVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String getOpenSw() {
+		return openSw;
+	}
+	public void setOpenSw(String openSw) {
+		this.openSw = openSw;
+	}
 	public String getPwd() {
 		return pwd;
 	}
@@ -81,30 +91,36 @@ public class PdsVO {
 	public void setHostIp(String hostIp) {
 		this.hostIp = hostIp;
 	}
-	public String getOpenSw() {
-		return openSw;
-	}
-	public void setOpenSw(String openSw) {
-		this.openSw = openSw;
-	}
 	public String getfDate() {
 		return fDate;
 	}
 	public void setfDate(String fDate) {
 		this.fDate = fDate;
 	}
-	public String getDownNum() {
+	public int getDownNum() {
 		return downNum;
 	}
-	public void setDownNum(String downNum) {
+	public void setDownNum(int downNum) {
 		this.downNum = downNum;
 	}
-	@Override
-	public String toString() {
-		return "PdsVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", fName=" + fName + ", fSName="
-				+ fSName + ", fSize=" + fSize + ", part=" + part + ", title=" + title + ", content=" + content
-				+ ", pwd=" + pwd + ", hostIp=" + hostIp + ", openSw=" + openSw + ", fDate=" + fDate + ", downNum="
-				+ downNum + "]";
+	public int getHour_diff() {
+		return hour_diff;
+	}
+	public void setHour_diff(int hour_diff) {
+		this.hour_diff = hour_diff;
+	}
+	public int getDate_diff() {
+		return date_diff;
+	}
+	public void setDate_diff(int date_diff) {
+		this.date_diff = date_diff;
 	}
 	
+	@Override
+	public String toString() {
+		return "PdsVO [idx=" + idx + ", mid=" + mid + ", nickName=" + nickName + ", fName=" + fName + ", fSName=" + fSName
+				+ ", fSize=" + fSize + ", part=" + part + ", title=" + title + ", content=" + content + ", openSw=" + openSw
+				+ ", pwd=" + pwd + ", hostIp=" + hostIp + ", fDate=" + fDate + ", downNum=" + downNum + ", hour_diff="
+				+ hour_diff + ", date_diff=" + date_diff + "]";
+	}
 }

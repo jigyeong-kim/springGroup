@@ -16,7 +16,6 @@ import common.CommonInterface;
 @WebServlet("*.pds")
 public class PdsController extends HttpServlet {
 
-	@SuppressWarnings("null")
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CommonInterface command = null;
@@ -39,6 +38,7 @@ public class PdsController extends HttpServlet {
 			viewPage += "pdsList";
 		}
 		else if(com.equals("PdsInput")) {
+			request.setAttribute("part", request.getParameter("part"));
 			viewPage += "pdsInput";
 		}
 		else if(com.equals("PdsInputOk")) {
